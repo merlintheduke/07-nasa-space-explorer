@@ -19,6 +19,13 @@ const modalExplanation = document.getElementById("modal-explanation");
 const modalCopyright = document.getElementById("modal-copyright");
 
 let lastFocusedElement = null;
+setupDateInputs(startDateInput, endDateInput);
+
+const apodDateRange = {
+  firstDate: "1995-06-16",
+  today: new Date().toISOString().split("T")[0],
+  maxDays: 9
+};
 
 const spaceFacts = [
   "A day on Venus is longer than a year on Venus.",
@@ -67,11 +74,11 @@ function validateDates(startDate, endDate) {
     return "Please select both a start date and an end date.";
   }
 
-  if (startDate < window.apodDateRange.firstDate) {
+  if (startDate < apodDateRange.firstDate) {
     return "NASA's APOD archive begins on June 16, 1995.";
   }
 
-  if (endDate > window.apodDateRange.today) {
+  if (endDate > apodDateRange.today) {
     return "The end date cannot be later than today.";
   }
 
@@ -80,7 +87,7 @@ function validateDates(startDate, endDate) {
   }
 
   const dayCount = getInclusiveDayCount(startDate, endDate);
-  if (dayCount > window.apodDateRange.maxDays) {
+  if (dayCount > apodDateRange.maxDays) {
     return "Please choose a range of 9 days or fewer.";
   }
 
